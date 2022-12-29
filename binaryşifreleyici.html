@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Binary Şifreleyici</title>
+    <style>
+        *{
+            user-select: none;
+        }
+        .color-1{
+            background-color: rgb(91, 245, 91) !important;
+            color: black !important;
+        }
+        html{
+            margin: 0;
+            padding: 0;
+        }
+        body{
+            background-color: rgb(48, 47, 47);
+            margin: 0;
+            padding: 0;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif
+        }
+        #result{
+            border: 1px solid white;
+            padding: 15px;
+            color: white;
+        }
+        #result{
+            display: block;
+            background-color: rgb(94, 94, 94);
+            border-radius: 15px;
+            margin: 1%;
+        }
+        #metin{
+            background-color: rgba(95, 95, 95, 0.452);
+            width: 95%;
+            height: 250px;
+            text-align: left;
+            align-items: flex-start;
+            justify-content: baseline;
+            box-shadow: 0 0 0;
+            border: 0;
+            border-radius: 5px;
+            align-content: flex-start;
+            color: white;
+
+        }
+        #radiocon{
+            text-align: center;
+        }
+        #radiocon label{
+            color: white;
+        }
+        #radiocon input{
+            appearance: none;
+        }
+        .dp-inline{
+            display: inline !important;
+        }
+        .inpcon{
+            border: 1px solid white;
+            padding: 5px;
+            margin-right: 15px;
+            font-size: 3em;
+            background-color: rgb(118, 118, 255);
+            border-radius: 15px;
+        }
+        #autorender1{
+            text-align: center;
+            color: black;
+            font-weight: bold;
+            
+        }
+        #autorender2{
+            display: inline;
+            background-color: rgb(180, 180, 255);
+            padding: 15px;
+            border-radius: 8px;
+            
+        }
+        #autorender{
+            appearance: none;
+            color: white;
+        }
+        #calcubtn{
+            background-color: rgb(180, 180, 255);
+            padding: 10px;
+            border-radius: 7px;
+        }
+        #textarea1{
+            display: flex;
+            align-self: baseline;
+            justify-content: center;
+        }
+        #copy{
+            background-color: rgb(118, 118, 255);
+            color: white;
+            padding: 5px;
+            font-size: 1.2em;
+            border-radius: 15px;
+            border: none;
+            margin-left: 1%;
+            position: relative;
+            top: -25px;
+        }
+    </style>
+</head>
+<body>
+    <h1 style="display: block;text-align: center;color: white">Binary Şifreleyici v1.0</h1>
+    <div id="binary1">
+        <div id="binary">
+            
+            <div id="textarea1"><textarea type="text" id="metin" style="padding: 20px;" placeholder="Metini veya şifreyi girin..."></textarea></div>
+            
+        
+        <br>
+            <div id="radiocon">
+            <div class="dp-inline inpcon" id="sifrelecon">
+            <input type="radio" name="islemipi" id="sifrele" onclick="metnisifrele()"><label for="sifrele">Metini Şifrele</label>
+            </div>
+            <div class="dp-inline inpcon" id="cozcon">
+            <input type="radio" name="islemipi" id="coz" onclick="metnicoz()"><label for="coz">Şifreyi Çöz</label>
+            </div>
+<br><br>
+            <button id="calcubtn" onclick="calcu()">İşlem Başlat</button><br><br>
+           </div>  
+            <span id="result">#</span>
+            <br>
+            <button id="copy" onclick="copy()">Kopyala</button>
+        </div>
+    </div>
+<script>
+    var sifrelecount = 0;
+    var cozcount = 0;
+    function metnisifrele(){
+        if (cozcount == 1){
+            cozcount = 0;
+            document.getElementById("cozcon").classList.toggle("color-1")
+
+        }
+        if (sifrelecount==0){
+            sifrelecount = 1;
+            document.getElementById("sifrelecon").classList.toggle("color-1")
+        }
+        else{
+            sifrelecount = 0;
+            document.getElementById("sifrelecon").classList.toggle("color-1")
+        }
+
+    }
+    function metnicoz(){
+        if(sifrelecount == 1){
+            sifrelecount = 0;
+            document.getElementById("sifrelecon").classList.toggle("color-1")
+ 
+        }
+        if (cozcount==0){
+            cozcount = 1;
+            document.getElementById("cozcon").classList.toggle("color-1")
+        }
+        else{
+            cozcount = 0;
+            document.getElementById("cozcon").classList.toggle("color-1")
+        }
+    }
+    
+function calcu(){
+    document.getElementById("copy").classList.add("calcubtn")
+    setTimeout(() => {
+        document.getElementById("copy").classList.remove("color-1")
+    }, 500);
+    let metin = ""
+    let metin2 = ""
+    let metin3 = ""
+        if (document.getElementById("sifrele").checked == true){                                            
+                    metin = document.getElementById("metin").value  
+                    metin2 = metin.toLowerCase()
+                    metin2 = metin2.trim()
+
+                    while(metin2.indexOf("a")>-1){
+                    metin2 = metin2.replace('a',"01000001&")
+                    }
+                    while(metin2.indexOf("b")>-1){ 
+                    metin2 = metin2.replace('b',"01000010&")
+                    }
+                    while(metin2.indexOf("c")>-1){ 
+                    metin2 = metin2.replace('c',"01000011&")
+                    }
+                    while(metin2.indexOf("d")>-1){ 
+                    metin2 = metin2.replace('d',"01000100&") 
+                    }
+                    while(metin2.indexOf("e")>-1){
+                    metin2 = metin2.replace('e',"01000101&") 
+                    }
+                    while(metin2.indexOf("f")>-1){
+                    metin2 = metin2.replace('f',"01000110&") 
+                    }
+                    while(metin2.indexOf("g")>-1){
+                    metin2 = metin2.replace('g',"01000111&") 
+                    }
+                    while(metin2.indexOf("h")>-1){
+                    metin2 = metin2.replace('h',"01001000&")
+                    } 
+                    while(metin2.indexOf("i")>-1){
+                    metin2 = metin2.replace('i',"01001001&")
+                    } 
+                    while(metin2.indexOf("j")>-1){
+                    metin2 = metin2.replace('j',"01001010&") 
+                    }
+                    while(metin2.indexOf("k")>-1){
+                    metin2 = metin2.replace('k',"01001011&") 
+                    }
+                    while(metin2.indexOf("l")>-1){
+                    metin2 = metin2.replace('l',"01001100&") 
+                    }
+                    while(metin2.indexOf("m")>-1){
+                    metin2 = metin2.replace('m',"01001101&") 
+                    }
+                    while(metin2.indexOf("n")>-1){
+                    metin2 = metin2.replace('n',"01001110&") 
+                    }
+                    while(metin2.indexOf("o")>-1){
+                    metin2 = metin2.replace('o',"01001111&") 
+                    }
+                    while(metin2.indexOf("p")>-1){
+                    metin2 = metin2.replace('p',"01010000&") 
+                    }
+                    while(metin2.indexOf("q")>-1){
+                    metin2 = metin2.replace('q',"01010001&") 
+                    }
+                    while(metin2.indexOf("r")>-1){
+                    metin2 = metin2.replace('r',"01010010&") 
+                    }
+                    while(metin2.indexOf("s")>-1){
+                    metin2 = metin2.replace('s',"01010011&") 
+                    }
+                    while(metin2.indexOf("t")>-1){
+                    metin2 = metin2.replace('t',"01010100&") 
+                    }
+                    while(metin2.indexOf("u")>-1){
+                    metin2 = metin2.replace('u',"01010101&") 
+                    }
+                    while(metin2.indexOf("v")>-1){
+                    metin2 = metin2.replace('v',"01010110&")
+                    } 
+                    while(metin2.indexOf("w")>-1){
+                    metin2 = metin2.replace('w',"01010111&") 
+                    }
+                    while(metin2.indexOf("x")>-1){
+                    metin2 = metin2.replace('x',"01011000&")
+                    } 
+                    while(metin2.indexOf("y")>-1){
+                    metin2 = metin2.replace('y',"01011001&") 
+                    }
+                    while(metin2.indexOf("z")>-1){
+                    metin2 = metin2.replace('z',"01011010&") 
+                    }
+                    
+                    metin3 = metin2.trim()
+                    document.getElementById("result").textContent = metin3 
+        }  
+        else{
+                metin = document.getElementById("metin").value  
+                    metin2 = metin.toLowerCase()
+                    while(metin2.indexOf("01000001")>-1){
+                    metin2 = metin2.replace('01000001',"a")
+                    }
+                    while(metin2.indexOf("01000010")>-1){ 
+                    metin2 = metin2.replace('01000010',"b") 
+                    }
+                    while(metin2.indexOf("01000011")>-1){
+                    metin2 = metin2.replace('01000011',"c")
+                    }
+                    while(metin2.indexOf("01000100")>-1){ 
+                    metin2 = metin2.replace('01000100',"d")
+                    }
+                    while(metin2.indexOf("01000101")>-1){ 
+                    metin2 = metin2.replace('01000101',"e") 
+                    }
+                    while(metin2.indexOf("01000110")>-1){
+                    metin2 = metin2.replace('01000110',"f")
+                    }
+                    while(metin2.indexOf("01000111")>-1){ 
+                    metin2 = metin2.replace('01000111',"g") 
+                    }
+                    while(metin2.indexOf("01001000")>-1){
+                    metin2 = metin2.replace('01001000',"h") 
+                    }
+                    while(metin2.indexOf("01001001")>-1){
+                    metin2 = metin2.replace('01001001',"i")
+                    }
+                    while(metin2.indexOf("01001010")>-1){ 
+                    metin2 = metin2.replace('01001010',"j")
+                    }
+                    while(metin2.indexOf("01001011")>-1){ 
+                    metin2 = metin2.replace('01001011',"k") 
+                    }
+                    while(metin2.indexOf("01001100")>-1){
+                    metin2 = metin2.replace('01001100',"l")
+                    }
+                    while(metin2.indexOf("01001101")>-1){ 
+                    metin2 = metin2.replace('01001101',"m")
+                    }
+                    while(metin2.indexOf("01001110")>-1){ 
+                    metin2 = metin2.replace('01001110',"n")
+                    }
+                    while(metin2.indexOf("01001111")>-1){ 
+                    metin2 = metin2.replace('01001111',"o")
+                    }
+                    while(metin2.indexOf("01010000")>-1){ 
+                    metin2 = metin2.replace('01010000',"p")
+                    }
+                    while(metin2.indexOf("01010001")>-1){ 
+                    metin2 = metin2.replace('01010001',"q")
+                    }
+                    while(metin2.indexOf("01010010")>-1){ 
+                    metin2 = metin2.replace('01010010',"r")
+                    }
+                    while(metin2.indexOf("01010011")>-1){ 
+                    metin2 = metin2.replace('01010011',"s")
+                    }
+                    while(metin2.indexOf("01010100")>-1){ 
+                    metin2 = metin2.replace('01010100',"t")
+                    }
+                    while(metin2.indexOf("01010101")>-1){ 
+                    metin2 = metin2.replace('01010101',"u")
+                    }
+                    while(metin2.indexOf("01010110")>-1){ 
+                    metin2 = metin2.replace('01010110',"v")
+                    }
+                    while(metin2.indexOf("01010111")>-1){ 
+                    metin2 = metin2.replace('01010111',"w")
+                    }
+                    while(metin2.indexOf("01011000")>-1){ 
+                    metin2 = metin2.replace('01011000',"x")
+                    }
+                    while(metin2.indexOf("01011001")>-1){ 
+                    metin2 = metin2.replace('01011001',"y")
+                    }
+                    while(metin2.indexOf("01011010")>-1){ 
+                    metin2 = metin2.replace('01011010',"z") 
+                    }
+
+                    metin2split = metin2.split(" ")
+                    metin2lenght = metin2split.length
+                    metin2splitstr = metin2split.toString()
+                    console.log(metin2splitstr)
+ 
+                    while(metin2.indexOf("&")>-1){
+                    metin2 = metin2.replace('&',"")
+                    }
+                    
+                    metin3 = metin2.trim() 
+                    document.getElementById("result").textContent = metin3 
+        }
+}
+function copy(){
+    navigator.clipboard.writeText(document.getElementById("result").textContent)
+    document.getElementById("copy").classList.add("color-1")
+    setTimeout(() => {
+        document.getElementById("copy").classList.remove("color-1")
+    }, 500);
+}
+</script>
+</body>
+</html>
